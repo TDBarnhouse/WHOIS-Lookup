@@ -1,8 +1,9 @@
+# File: lookup.py
 import socket
-import time
+import sys
 
 def whois_lookup(domain: str):
-    print("Looking up target", domain + "...")
+    print("WHOIS Lookup on target", domain + "...")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(("whois.iana.org", 43))
     s.send(f"{domain}\r\n".encode())
@@ -10,9 +11,15 @@ def whois_lookup(domain: str):
     s.close()
 
     if "returned 0 objects" in response:
-        print("Lookup failed: No results found.\n")
+        print("WHOIS Lookup failed: No results found.\n")
     else:
-        print("Lookup completed.\n")
+        print("WHOIS Lookup completed.\n")
     return response
 
-print(whois_lookup("google.com"))
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python3 whois.py <domain>")
+        sys.exit(1)
+    
+    domain = sys.argv[1]
+    print(whois_lookup(domain))
