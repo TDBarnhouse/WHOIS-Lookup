@@ -2,11 +2,11 @@
 import socket
 import sys
 
-def whois_lookup(domain: str):
-    print("WHOIS Lookup on target", domain + "...")
+def whois_lookup(target: str):
+    print("WHOIS Lookup on target", target + "...")
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(("whois.iana.org", 43))
-    s.send(f"{domain}\r\n".encode())
+    s.send(f"{target}\r\n".encode())
     response = s.recv(4096).decode()
     s.close()
 
@@ -18,8 +18,8 @@ def whois_lookup(domain: str):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 whois.py <domain>")
+        print("Usage: python3 whois.py <target>")
         sys.exit(1)
     
-    domain = sys.argv[1]
-    print(whois_lookup(domain))
+    target = sys.argv[1]
+    print(whois_lookup(target))
