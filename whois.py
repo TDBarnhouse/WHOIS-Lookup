@@ -1,4 +1,3 @@
-# File: lookup.py
 import socket
 import sys
 
